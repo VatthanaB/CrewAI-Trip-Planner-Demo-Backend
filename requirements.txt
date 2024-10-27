@@ -1,0 +1,6 @@
+flask==2.1.2
+crewai==0.1.24
+unstructured==0.10.25
+pyowm==3.3.0
+python-dotenv==1.0.0
+langchain-openai==0.0.5

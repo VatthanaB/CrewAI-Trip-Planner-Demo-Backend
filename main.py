@@ -3,7 +3,7 @@ from flask_cors import CORS
 from crewai import Crew  # assuming Crew is a valid import path
 from agents import TravelAgents
 from tasks import TravelTasks
-
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -82,4 +82,5 @@ def trip_plan():
     return jsonify({'result': result})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=4000)
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
