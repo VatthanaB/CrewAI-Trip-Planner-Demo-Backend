@@ -6,35 +6,24 @@ from tools.calculator_tools import CalculatorTools
 
 class TravelAgents:
     def __init__(self):
-        self.OpenAIGPT35 = ChatOpenAI(
-            model_name="gpt-3.5-turbo", temperature=0.7)
+        self.OpenAIGPT35 = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.3)
         self.OpenAIGPT4 = ChatOpenAI(model_name="gpt-4", temperature=0.7)
 
     def expert_travel_agent(self):
         return Agent(
             role="Expert Travel Agent",
-            backstory=dedent(
-                f"""Expert in travel planning and logistics. 
-                I have decades of experience making travel itineraries."""),
-            goal=dedent(f"""
-                        Create a 7-day travel itinerary with detailed per-day plans,
-                        including budget, packing suggestions, and safety tips.
-                        """),
-            tools=[
-                SearchTools.search_internet,
-                CalculatorTools.calculate
-            ],
+            backstory="Experienced in planning detailed travel itineraries with real-world insights and cost-efficiency.",
+            goal="Develop a 7-day itinerary with real recommendations for restaurants, hotels, and activities tailored to the travel dates and interests.",
+            tools=[SearchTools.search_internet, CalculatorTools.calculate],
             verbose=True,
-            llm=self.OpenAIGPT35,
+            llm=self.OpenAIGPT4,
         )
 
     def city_selection_expert(self):
         return Agent(
             role="City Selection Expert",
-            backstory=dedent(
-                f"""Expert at analyzing travel data to pick ideal destinations"""),
-            goal=dedent(
-                f"""Select the best cities based on weather, season, prices, and traveler interests"""),
+            backstory="Analyst focused on optimizing city choices based on weather, season, and budget.",
+            goal="Compare and select the ideal city based on origin, travel dates, and interests with a weather, event, and cost breakdown.",
             tools=[SearchTools.search_internet],
             verbose=True,
             llm=self.OpenAIGPT35,
@@ -43,10 +32,8 @@ class TravelAgents:
     def local_tour_guide(self):
         return Agent(
             role="Local Tour Guide",
-            backstory=dedent(f"""Knowledgeable local guide with extensive information
-        about the city, its attractions, and customs"""),
-            goal=dedent(
-                f"""Provide the BEST insights about the selected city"""),
+            backstory="Local expert with insights into hidden gems, local customs, and must-see spots.",
+            goal="Provide a detailed city guide with specific attractions, local tips, and daily activity recommendations.",
             tools=[SearchTools.search_internet],
             verbose=True,
             llm=self.OpenAIGPT35,
@@ -55,14 +42,8 @@ class TravelAgents:
     def result_structuring_expert(self):
         return Agent(
             role="Result Structuring Expert",
-            backstory=dedent(
-                f"""Experienced report writer and travel document organizer. 
-                I have expertise in structuring and presenting information in an easy-to-read, 
-                cohesive format that covers all details and ensures clarity."""),
-            goal=dedent(
-                f"""Structure the gathered travel information into a comprehensive report, 
-                including a 7-day itinerary, city details, and recommendations. Ensure the report 
-                is organized, easy to read, and covers all relevant aspects of the trip."""),
+            backstory="Specialist in organizing travel data into a comprehensive, readable report.",
+            goal="Structure gathered information into a cohesive report covering itinerary, logistics, and tips without placeholders.",
             tools=[CalculatorTools.calculate],
             verbose=True,
             llm=self.OpenAIGPT35,

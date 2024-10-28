@@ -23,6 +23,7 @@ class TripCrew:
         # Set up agents and tasks
         agents = TravelAgents()
         tasks = TravelTasks()
+        
         expert_travel_agent = agents.expert_travel_agent()
         city_selection_expert = agents.city_selection_expert()
         local_tour_guide = agents.local_tour_guide()
@@ -38,14 +39,12 @@ class TripCrew:
         gather_city_info = tasks.gather_city_info(
             local_tour_guide, self.cities, self.date_range, self.interests
         )
-          # New task to structure all gathered information
         structure_info = tasks.structure_info(
             agent=result_structuring_expert,
             itinerary=plan_itinerary,
             city_info=gather_city_info,
             identified_city=identify_city
         )
-        
 
         # Crew setup
         crew = Crew(
