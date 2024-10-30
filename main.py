@@ -26,7 +26,7 @@ class TripCrew:
         expert_travel_agent = agents.expert_travel_agent()
         city_selection_expert = agents.city_selection_expert()
         local_tour_guide = agents.local_tour_guide()
-        result_structuring_expert = agents.result_structuring_expert()
+        # result_structuring_expert = agents.result_structuring_expert()
 
         # Define tasks
         plan_itinerary = tasks.plan_itinerary(
@@ -39,17 +39,17 @@ class TripCrew:
             local_tour_guide, self.cities, self.date_range, self.interests
         )
         # New task to structure all gathered information
-        structure_info = tasks.structure_info(
-            agent=result_structuring_expert,
-            itinerary=plan_itinerary,
-            city_info=gather_city_info,
-            identified_city=identify_city
-        )
+        # structure_info = tasks.structure_info(
+        #     agent=result_structuring_expert,
+        #     itinerary=plan_itinerary,
+        #     city_info=gather_city_info,
+        #     identified_city=identify_city
+        # )
 
         # Crew setup
         crew = Crew(
-            agents=[expert_travel_agent, city_selection_expert, local_tour_guide, result_structuring_expert],
-            tasks=[plan_itinerary, identify_city, gather_city_info, structure_info],
+            agents=[expert_travel_agent, city_selection_expert, local_tour_guide],
+            tasks=[plan_itinerary, identify_city, gather_city_info],
             verbose=True,
         )
 
