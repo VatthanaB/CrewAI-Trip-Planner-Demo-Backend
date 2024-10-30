@@ -38,34 +38,24 @@ class TripCrew:
         gather_city_info = tasks.gather_city_info(
             local_tour_guide, self.cities, self.date_range, self.interests
         )
-        # # New task to structure all gathered information
-        # structure_info = tasks.structure_info(
-        #     agent=result_structuring_expert,
-        #     itinerary=plan_itinerary,
-        #     city_info=gather_city_info,
-        #     identified_city=identify_city
-        # )
+        # New task to structure all gathered information
+        structure_info = tasks.structure_info(
+            agent=result_structuring_expert,
+            itinerary=plan_itinerary,
+            city_info=gather_city_info,
+            identified_city=identify_city
+        )
 
         # Crew setup
         crew = Crew(
             agents=[expert_travel_agent, city_selection_expert, local_tour_guide, result_structuring_expert],
-            tasks=[plan_itinerary, identify_city, gather_city_info],
+            tasks=[plan_itinerary, identify_city, gather_city_info, structure_info],
             verbose=True,
         )
 
         # Execute the crew and ensure result length
         result = crew.kickoff()
-        attempt_count = 1  # Track the number of attempts
-        max_attempts = 5  # Limit the number of retries to prevent infinite loop
-
-        while len(result) < 1500 and attempt_count < max_attempts:
-            print(f"Result is under 1200 characters. Retrying... Attempt {attempt_count}")
-            result = crew.kickoff()  # Restart the crew
-            attempt_count += 1
-
-        if len(result) < 1500:
-            print("Unable to generate a result over 1200 characters after multiple attempts.")
-            result += "\n\nAdditional insights and data are currently being gathered. Please check back later or contact support for more details."
+        
 
         return result
 
